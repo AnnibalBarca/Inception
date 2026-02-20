@@ -1,0 +1,13 @@
+services:
+  nginx:
+    build: ./requirements/nginx
+    image: nginx #assez pour nm
+    restart: always
+    ports:
+      - "443:443"
+    env_file:
+      - ../.env
+    volumes:
+      - wordpress_files:/var/www/html
+    networks:
+      - inception_net
