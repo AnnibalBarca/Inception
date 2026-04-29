@@ -1,20 +1,66 @@
 services:
   nginx:
     build: ./requirements/nginx
-    image: nginx #assez pour nm
+    image: nginx
+    container_name: nginx
     restart: always
     ports:
       - "443:443"
     env_file:
-      - ../.env
+      - .env
     volumes:
       - wordpress_files:/var/www/html
     networks:
-      - inception_net
-    container_name:
+      - almeekel
+    depends_on:
+      - wordpress
+
   mariadb:
     build: ./requirements/mariadb
     image: mariadb
+    container_name: mariadb
     restart: always
-    ports:
- 
+    env_file:
+      - .env
+    environment:
+      SQL_DATABASE: ${DB_NAME}
+      SQL_USER: ${DB_USER}
+      SQL_PASSWORD: ${DB_PASSWORD}
+      SQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - almeekel
+
+  wordpress:
+    build: ./requirements/wordpress
+    image: wordpress
+    container_name: wordpress
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wordpress_files:/var/www/wordpress
+    networks:
+      - almeekel
+    depends_on:
+      - mariadb
+
+volumes:
+  wordpress_files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/almeekel/data/wordpress
+
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/almeekel/data/mariadb
+
+networks:
+  almeekel:
+    driver: bridge
