@@ -1,8 +1,8 @@
 services:
-  nginx:
+  ngnx:
     build: ./requirements/nginx
-    image: nginx
-    container_name: nginx
+    image: ngnx:almeekel
+    container_name: ngnx
     restart: always
     ports:
       - "443:443"
@@ -15,26 +15,21 @@ services:
     depends_on:
       - wordpress
 
-  mariadb:
+  db:
     build: ./requirements/mariadb
-    image: mariadb
-    container_name: mariadb
+    image: db:almeekel
+    container_name: db
     restart: always
     env_file:
       - .env
-    environment:
-      SQL_DATABASE: ${DB_NAME}
-      SQL_USER: ${DB_USER}
-      SQL_PASSWORD: ${DB_PASSWORD}
-      SQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
       - almeekel
 
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
+    image: wordpress:almeekel
     container_name: wordpress
     restart: always
     env_file:
@@ -44,7 +39,7 @@ services:
     networks:
       - almeekel
     depends_on:
-      - mariadb
+      - db
 
 volumes:
   wordpress_files:
@@ -54,12 +49,12 @@ volumes:
       o: bind
       device: /home/almeekel/data/wordpress
 
-  mariadb_data:
+  db_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/almeekel/data/mariadb
+      device: /home/almeekel/data/db
 
 networks:
   almeekel:
