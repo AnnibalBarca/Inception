@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^git log --oneline -- secrets && printf '\\\\n---\\\\n' && git log --oneline --follow -- secrets/db_password\\.txt secrets/db_root_password\\.txt secrets/credentials\\.txt 2>/dev/null$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

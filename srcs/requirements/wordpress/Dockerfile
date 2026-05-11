@@ -1,6 +1,7 @@
 FROM debian:12-slim
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
     php-fpm \
     php-mysql \
     mariadb-client \
@@ -10,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     && wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp \
-    && apt-get clean
+    && rm -rf /var/lib/apt/lists/*
 
 COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY tools/wordpressrun.sh /usr/local/bin/wordpressrun.sh

@@ -18,6 +18,8 @@ wait_for_db() {
 mkdir -p /run/php
 cd /var/www/wordpress
 
+wait_for_db || exit 1
+
 if [ ! -f wp-config.php ]; then
     wp config create \
         --dbname="${DB_NAME}" \
@@ -26,8 +28,6 @@ if [ ! -f wp-config.php ]; then
         --dbhost=db:3306 \
         --allow-root
 fi
-
-wait_for_db || exit 1
 
 if ! wp core is-installed --allow-root 2>/dev/null; then
     wp core install \
@@ -45,4 +45,4 @@ if ! wp core is-installed --allow-root 2>/dev/null; then
         --allow-root
 fi
 
-exec $(which php-fpm*) -F
+exec php-fpm8.2 -F
