@@ -52,11 +52,12 @@ If the domain does not resolve on your machine, point `almeekel.42.fr` to the IP
 The repository stores the sensitive values in the `secrets/` directory.
 
 Expected files:
+- `srcs/.env`
 - `secrets/credentials.txt`
 - `secrets/db_password.txt`
 - `secrets/db_root_password.txt`
 
-The compose file also reads a root-level `.env` file, so keep it aligned with the values used by the stack.
+The compose file reads `srcs/.env`, so keep it aligned with the values used by the stack.
 
 Notes:
 - These files contain the values used for WordPress and MariaDB authentication.

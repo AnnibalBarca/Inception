@@ -26,13 +26,14 @@ Before running the project, make sure the following are available on your system
 - Docker Compose plugin (`docker compose`)
 - GNU Make
 - A local user with permission to run Docker commands
-- A project-level `.env` file at the repository root, because `srcs/docker-compose.yml` loads `../.env`
+- A `srcs/.env` file, because `srcs/docker-compose.yml` loads `.env` from the Compose directory
 - The project secrets placed in the `secrets/` directory
 
 ### Project layout
 The most important files are:
 - `Makefile`: convenience targets for setup, start, stop, cleanup, and rebuild.
 - `srcs/docker-compose.yml`: container orchestration, service wiring, volumes, and networks.
+- `srcs/.env`: environment values loaded by Docker Compose.
 - `srcs/requirements/nginx/`: Nginx image build context and configuration.
 - `srcs/requirements/wordpress/`: WordPress image build context, PHP-FPM configuration, and bootstrap script.
 - `srcs/requirements/mariadb/`: MariaDB image build context and database bootstrap script.

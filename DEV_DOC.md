@@ -13,11 +13,12 @@ Install the following tools on the development machine:
 The stack expects credential values to be available through the secret files in `secrets/`.
 
 Files used by the project:
+- `srcs/.env`
 - `secrets/credentials.txt`
 - `secrets/db_password.txt`
 - `secrets/db_root_password.txt`
 
-The compose file also expects a root-level `.env` file, because the services load `../.env` from inside `srcs/`.
+The compose file expects `srcs/.env`, because the services load `.env` from inside the Compose directory.
 
 ### Host directories for persistence
 The Makefile creates the host storage directories under:

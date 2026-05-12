@@ -7,7 +7,7 @@ services:
     ports:
       - "443:443"
     env_file:
-      - ../.env
+      - .env
     volumes:
       - wordpress_files:/var/www/html
     networks:
@@ -21,7 +21,7 @@ services:
     container_name: db
     restart: always
     env_file:
-      - ../.env
+      - .env
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -33,7 +33,7 @@ services:
     container_name: wordpress
     restart: always
     env_file:
-      - ../.env
+      - .env
     volumes:
       - wordpress_files:/var/www/wordpress
     networks:
