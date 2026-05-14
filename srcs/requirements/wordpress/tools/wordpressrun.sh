@@ -43,6 +43,10 @@ if ! wp core is-installed --allow-root 2>/dev/null; then
         --role=author \
         --user_pass="${WP_USER_PASSWORD}" \
         --allow-root
+
+    wp option update default_comment_status open --allow-root
+    wp comment_registration --allow-root 2>/dev/null || true
+    wp post update 1 --comment_status=open --allow-root
 fi
 
 exec php-fpm8.2 -F
