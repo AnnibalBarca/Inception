@@ -35,7 +35,7 @@ services:
     env_file:
       - .env
     volumes:
-      - wordpress_files:/var/www/wordpress
+      - wordpress_files:/var/www/html
     networks:
       - inception_net
     depends_on:

@@ -18,7 +18,7 @@ Files used by the project:
 - `secrets/db_password.txt`
 - `secrets/db_root_password.txt`
 
-The compose file expects `srcs/.env`, because the services load `.env` from inside the Compose directory.
+The compose file expects `srcs/.env`, as the services load `.env` from inside the Compose directory.
 
 ### Host directories for persistence
 The Makefile creates the host storage directories under:

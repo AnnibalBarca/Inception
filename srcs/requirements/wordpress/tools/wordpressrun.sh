@@ -16,7 +16,7 @@ wait_for_db() {
 }
 
 mkdir -p /run/php
-cd /var/www/wordpress
+cd /var/www/html
 
 wait_for_db || exit 1
 
